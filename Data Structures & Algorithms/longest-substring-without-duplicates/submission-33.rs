@@ -1,0 +1,16 @@
+impl Solution {
+    pub fn length_of_longest_substring(s: String) -> i32 {
+        let sb = s.as_bytes();
+        let mut seen = HashMap::new();
+        let mut longest = 0;
+        let mut l = 0;
+        for r in 0..sb.len() {
+            if let Some(&left) = seen.get(&sb[r]) {
+                l = max(seen[&sb[r]] + 1, l);
+            };
+            seen.insert(sb[r], r);
+            longest = max(longest, r - l + 1);
+        }
+        longest as i32
+    }
+}
