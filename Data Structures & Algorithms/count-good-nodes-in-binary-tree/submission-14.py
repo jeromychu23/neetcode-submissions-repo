@@ -7,17 +7,18 @@
 
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        stack = collections.deque([(root, float('-inf'))])
         res = 0
-
-        while stack:
-            node, maxVal = stack.popleft()
+        
+        def dfs(node, maxVal = float('-inf')):
+            if not node:
+                return 0
+            
+            nonlocal res
             if node.val >= maxVal:
                 res += 1
-            newMax = max(maxVal, node.val)
-            if node.left:
-                stack.append((node.left, newMax))
-            if node.right:
-                stack.append((node.right, newMax))
+                maxVal = node.val
+            dfs(node.left, maxVal)
+            dfs(node.right, maxVal)
         
+        dfs(root)
         return res
