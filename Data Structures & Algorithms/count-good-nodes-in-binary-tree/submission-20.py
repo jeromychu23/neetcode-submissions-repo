@@ -8,16 +8,17 @@
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         res = 0
-        stack = [(root, float('-inf'))]
-
-        while stack:
-            node, maxVal = stack.pop()
+        
+        def dfs(node, maxVal = float('-inf')):
+            if not node:
+                return 0
+            
+            nonlocal res
             if node.val >= maxVal:
                 res += 1
                 maxVal = node.val
-            if node.left:
-                stack.append((node.left, maxVal))
-            if node.right:
-                stack.append((node.right, maxVal))
+            dfs(node.left, maxVal)
+            dfs(node.right, maxVal)
         
+        dfs(root)
         return res
