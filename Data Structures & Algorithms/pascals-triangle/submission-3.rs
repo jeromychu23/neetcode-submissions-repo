@@ -1,0 +1,17 @@
+impl Solution {
+    pub fn generate(num_rows: i32) -> Vec<Vec<i32>> {
+        let mut res = vec![vec![]; num_rows as usize];
+
+        for i in 0..num_rows as usize {
+            res[i] = vec![1; i + 1];
+            for k in 1..i {
+                res[i][k] = res[i - 1][k - 1] + res[i - 1][k];
+            }
+            // 不需要if 因為 0跟1也不會執行for迴圈
+            // if i > 1 {
+            // }
+        }
+
+        res
+    }
+}
